@@ -2,6 +2,7 @@ package controllers
 
 import (
 	"net/http"
+	"os"
 	"time"
 	"unjukketerampilan/models"
 
@@ -33,7 +34,7 @@ func Login(c echo.Context) error {
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
 
 	// Generate encoded token and send it as response.
-	t, err := token.SignedString([]byte("rahasia"))
+	t, err := token.SignedString([]byte(os.Getenv("SECRET_KEY")))
 	if err != nil {
 		return err
 	}

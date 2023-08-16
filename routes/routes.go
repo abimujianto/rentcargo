@@ -1,6 +1,7 @@
 package route
 
 import (
+	"os"
 	"unjukketerampilan/controllers"
 
 	echojwt "github.com/labstack/echo-jwt/v4"
@@ -13,7 +14,7 @@ func SetupRoutes(e *echo.Echo) {
 	e.POST("/login", controllers.Login)
 
 	auth := e.Group("")
-	auth.Use(echojwt.JWT([]byte("rahasia")))
+	auth.Use(echojwt.JWT([]byte(os.Getenv("SECRET_KEY"))))
 
 	auth.POST("/addmerks", controllers.CreateMerk)
 	auth.POST("/addcars", controllers.CreateCar)

@@ -3,6 +3,7 @@ package database
 import (
 	"fmt"
 	"log"
+	"os"
 
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
@@ -11,15 +12,21 @@ import (
 var DB *gorm.DB
 
 func ConnectDB() {
-	dsn := "abimuji1_:12345678@tcp(127.0.0.1:3306)/rentcargo1_?charset=utf8mb4&parseTime=True&loc=Local"
+	// DB = db
+	dbHost := os.Getenv("DB_HOST")
+	dbPort := os.Getenv("DB_PORT")
+	dbUser := os.Getenv("DB_USER")
+	dbPass := os.Getenv("DB_PASS")
+	dbName := os.Getenv("DB_NAME")
 
-	// Membuka koneksi ke database
+	dsn := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=utf8mb4&parseTime=True&loc=Local", dbUser, dbPass, dbHost, dbPort, dbName)
+
 	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
 	if err != nil {
 		panic(err)
 	}
-	fmt.Println(db)
 
+	fmt.Println(db)
 	DB = db
 }
 
