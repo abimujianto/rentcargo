@@ -97,7 +97,7 @@ func GetCarWithMerkByID(c echo.Context) error {
 	carID := c.Param("id")
 
 	var car models.Car
-	if err := db.Joins("JOIN merks ON cars.id_merk = merks.id").Where("cars.id = ?", carID).First(&car).Error; err != nil {
+	if err := db.Preload("Merk").Where("id = ?", carID).First(&car).Error; err != nil {
 		response := models.BaseResponse{
 			Success: false,
 			Message: "Gagal mengambil data mobil",
