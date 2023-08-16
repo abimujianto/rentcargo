@@ -12,18 +12,13 @@ import (
 )
 
 func main() {
+	e := echo.New()
 	godotenv.Load()
-	port := os.Getenv("PORT")
-	if port == "" {
-		port = "8080" // Default port if PORT environment variable is not set
-	}
+	e.Start(getPort())
 
 	// Connect to the database
 	database.ConnectDB()
 	defer database.CloseDB()
-
-	e := echo.New()
-
 	routes.SetupRoutes(e)
 
 	// migration.RunMigrationsForMerks(database.DB)
@@ -32,4 +27,11 @@ func main() {
 
 	e.Start(":8080")
 	fmt.Println("Successfully connected to the database")
+}
+
+func getPort() string {
+	if envPort := os.Getenv("PORT"); envPort != "" {
+		return ":" + envPort
+	}
+	return ":8080"
 }
