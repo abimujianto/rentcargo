@@ -6,26 +6,24 @@ import (
 	"unjukketerampilan/database"
 	routes "unjukketerampilan/routes"
 
-	"github.com/joho/godotenv"
 	"github.com/labstack/echo/v4"
 	// "unjukketerampilan/migration"
 )
 
 func main() {
 	e := echo.New()
-	godotenv.Load()
-	e.Start(getPort())
+	// godotenv.Load()
 
 	// Connect to the database
 	database.ConnectDB()
 	defer database.CloseDB()
 	routes.SetupRoutes(e)
 
+	e.Start(getPort())
 	// migration.RunMigrationsForMerks(database.DB)
 	// migration.RunMigrationsForCars(database.DB)
 	// migration.RunMigrationsForUsers(database.DB)
 
-	e.Start(":8080")
 	fmt.Println("Successfully connected to the database")
 }
 
