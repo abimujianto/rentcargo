@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"os"
 	"unjukketerampilan/database"
 	routes "unjukketerampilan/routes"
 
@@ -12,6 +13,11 @@ import (
 
 func main() {
 	godotenv.Load()
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8080" // Default port if PORT environment variable is not set
+	}
+
 	// Connect to the database
 	database.ConnectDB()
 	defer database.CloseDB()
