@@ -41,7 +41,6 @@ func CreateCar(c echo.Context) error {
 
 type Cars struct {
 	ID          int     `gorm:"primaryKey:autoIncrement" json:"id"`
-	IDMerk      int     `gorm:"foreignKey:IDMerk" json:"id_merk"`
 	Name        string  `json:"name"`
 	Description string  `json:"description"`
 	Price       float64 `json:"price"`
