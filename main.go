@@ -6,14 +6,13 @@ import (
 	"unjukketerampilan/database"
 	routes "unjukketerampilan/routes"
 
-	"github.com/joho/godotenv"
 	"github.com/labstack/echo/v4"
 	// "unjukketerampilan/migration"
 )
 
 func main() {
 	e := echo.New()
-	godotenv.Load()
+	// godotenv.Load()
 
 	// Connect to the database
 	database.ConnectDB()
