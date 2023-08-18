@@ -32,7 +32,7 @@ func CreateCar(c echo.Context) error {
 	}
 
 	response := models.BaseResponse{
-		Success: false,
+		Success: true,
 		Message: "Berhasil tambah data mobil",
 		Data:    car,
 	}
